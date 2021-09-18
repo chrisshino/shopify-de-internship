@@ -1,12 +1,16 @@
 from flask import Flask, request 
 from flask_restx import Api, Resource, fields
 from config import DevConfig
-from models import Recipe
+from models import Recipe, User
 from ext import db
+from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 db.init_app(app)
+
+migrate=Migrate(app, db)
 api=Api(app, doc='/docs')
 
 
@@ -20,6 +24,38 @@ recipe_model=api.model(
   }
 )
 
+signup_model=api.model(
+  "SignUp",
+  {
+    "username":fields.String(),
+    "email":fields.String(),
+    "password": fields.String()
+  }
+)
+
+@api.route("/signup")
+@api.expect(signup_model)
+class SignUp(Resource):
+  def post(self):
+    data=request.get_json()
+    new_user=User(
+      username=data.get("username"),
+      email=data.get("email"),
+      password=generate_password_hash(data.get("password"))
+    )
+
+    new_user.save()
+
+
+
+
+@api.route("/login")
+@api.expect(signup_model)
+class SignUp(Resource):
+  def post(self):
+    pass
+
+
 @api.route('/recipes')
 class RecipesResource(Resource):
   @api.marshal_list_with(recipe_model)
@@ -30,6 +66,7 @@ class RecipesResource(Resource):
    return recipes
 
   @api.marshal_with(recipe_model)
+  @api.expect(recipe_model)
   def post(self):
     data=request.get_json()
 
