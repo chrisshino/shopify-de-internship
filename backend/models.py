@@ -1,4 +1,4 @@
-from ext import db
+from backend.ext import db
 
 """
 class Recipe:
@@ -33,8 +33,8 @@ class User:
 
 class User(db.Model):
   id=db.Column(db.Integer, primary_key=True)
-  username=db.Column(db.String, nullable=False, unique=True)
-  email=db.Column(db.String(80), nullable=False, unique=True)
+  username=db.Column(db.String(25), nullable=False, unique=True)
+  email=db.Column(db.String(80), nullable=False, unique=False)
   password=db.Column(db.Text(), nullable=False)
 
   def __repr__(self):
