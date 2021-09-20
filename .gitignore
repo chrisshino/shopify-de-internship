@@ -2,5 +2,4 @@
 __pycache__/
 .env
 venv
-config.py
 cloud_storage_service_acct.json

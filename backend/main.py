@@ -1,17 +1,18 @@
 from flask import Flask
 from flask_restx import Api
-from backend.models import Recipe, User
-from backend.ext import db
+from models import Images, User
+from ext import db
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from backend.images import images_ns
-from backend.auth import auth_ns
+from config import DevConfig
+from images import images_ns
+from auth import auth_ns
 
 
 def create_app(config):
 
   app = Flask(__name__)
-  app.config.from_object(config)
+  app.config.from_object(DevConfig)
   db.init_app(app)
 
   migrate=Migrate(app, db)
@@ -25,7 +26,7 @@ def create_app(config):
   def make_shell_context():
     return {
       "db":db,
-      "Recipe":Recipe,
+      "Images":Images,
       "User": User
     }
 
