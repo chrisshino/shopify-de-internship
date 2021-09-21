@@ -31,6 +31,7 @@ class Images:
 
 class Images(db.Model):
   id=db.Column(db.Integer(), primary_key=True)
+  image=db.Column(db.String(), nullable=False)
   title=db.Column(db.String(), nullable=False)
   description=db.Column(db.String(), nullable=False)
   owner_id = db.Column(db.Integer(), db.ForeignKey('user.id'))

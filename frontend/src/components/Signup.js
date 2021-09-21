@@ -36,7 +36,7 @@ const Signup = () => {
         .then((data) => setServerData(data.message))
         .catch((err) => console.log(err));
       reset();
-      history.push("/images");
+      history.push("/login");
     } else {
       alert("Passwords do not match");
     }
@@ -45,7 +45,7 @@ const Signup = () => {
   return (
     <SignupWrapper>
       <h2>Sign Up</h2>
-      <FormWrapper>
+      <FormWrapper method="post">
         <UsernameWrapper>
           <label style={labelStyle} htmlFor="username">
             Username:

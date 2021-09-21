@@ -2,11 +2,10 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import {login} from "../auth";
+import { login } from "../auth";
 
-const Login = () => {
-  const history = useHistory()
-
+const Login = ({ setUser }) => {
+  const history = useHistory();
 
   const {
     register,
@@ -27,9 +26,9 @@ const Login = () => {
     fetch("/auth/login", requestOptions)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.access_token);
         login(data.access_token);
-        history.push("/images")
+        setUser({ user_Id: data.user_id, username: data.username });
+        history.push("/images");
       })
       .catch((err) => console.log(err));
 

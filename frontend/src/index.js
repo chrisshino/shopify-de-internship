@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -16,6 +16,8 @@ const AppWrapper = styled.div`
 `;
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
   return (
     <Router>
       <div>
@@ -23,10 +25,10 @@ const App = () => {
         <Switch>
           <AppWrapper>
             <Route path="/images">
-              <CreateImages />
+              <CreateImages user={user} />
             </Route>
             <Route path="/login">
-              <Login />
+              <Login setUser={setUser} />
             </Route>
             <Route path="/signup">
               <Signup />

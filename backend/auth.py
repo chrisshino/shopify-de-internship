@@ -64,8 +64,10 @@ class Login(Resource):
 
       access_token = create_access_token(identity=db_user.username)
       refresh_token = create_refresh_token(identity=db_user.username)
+      user_id = db_user.id
+      username = db_user.username
 
-      return jsonify({"access_token": access_token, "refresh_token": refresh_token})
+      return jsonify({"access_token": access_token, "refresh_token": refresh_token, "user_id": user_id, "username": username})
 
     else:
 

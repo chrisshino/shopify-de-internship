@@ -8,7 +8,8 @@ images_ns=Namespace('images', description="A namespace for Images")
 #model (serializer into JSON)
 images_model=images_ns.model(
   "Images",
-  {
+  { 
+    "image":fields.String(),
     "title":fields.String(),
     "description":fields.String(),
     "owner_id":fields.Integer()
