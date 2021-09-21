@@ -7,12 +7,13 @@ from flask_jwt_extended import JWTManager
 from config import DevConfig
 from images import images_ns
 from auth import auth_ns
+from flask_cors import CORS
 
-
-def create_app(config):
+def create_app():
 
   app = Flask(__name__)
   app.config.from_object(DevConfig)
+  CORS(app)
   db.init_app(app)
 
   migrate=Migrate(app, db)

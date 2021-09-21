@@ -10,7 +10,8 @@ images_model=images_ns.model(
   "Images",
   {
     "title":fields.String(),
-    "description":fields.String()
+    "description":fields.String(),
+    "owner_id":fields.Integer()
   }
 )
 
