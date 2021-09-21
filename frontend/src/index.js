@@ -6,6 +6,14 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import CreateImages from "./components/CreateImages";
+import styled from "styled-components";
+
+const AppWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
+`;
 
 const App = () => {
   return (
@@ -13,18 +21,20 @@ const App = () => {
       <div>
         <Navbar />
         <Switch>
-          <Route path="/CreateImages">
-            <CreateImages />
-          </Route>
-          <Route path="/Login">
-            <Login />
-          </Route>
-          <Route path="/Signup">
-            <Signup />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <AppWrapper>
+            <Route path="/images">
+              <CreateImages />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </AppWrapper>
         </Switch>
       </div>
     </Router>
