@@ -2,13 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ShopifyLogo from "../assets/Shopify-Logo.wine.svg";
-
+import { useAuth, logout } from "../auth";
 
 const Navbar = () => {
-  return (
-    <NavContainer>
-      <img src={ShopifyLogo} alt="shopify"/>
-      <LinkWrapper>
+  const [logged] = useAuth();
+
+  const LoggedInLinks = () => {
+    return (
+      <>
+        <Link to="/" style={TextStyle} onClick={() => logout()}>
+          Logout
+        </Link>
+
+        <Link to="/images" style={TextStyle}>
+          Images
+        </Link>
+      </>
+    );
+  };
+
+  const LoggedOutLinks = () => {
+    return (
+      <>
         <Link to="/" style={TextStyle}>
           Home
         </Link>
@@ -20,10 +35,15 @@ const Navbar = () => {
         <Link to="/login" style={TextStyle}>
           Login
         </Link>
+      </>
+    );
+  };
 
-        <Link to="/images" style={TextStyle}>
-          Images
-        </Link>
+  return (
+    <NavContainer>
+      <img src={ShopifyLogo} alt="shopify" />
+      <LinkWrapper>
+        {logged ? <LoggedInLinks /> : <LoggedOutLinks />}
       </LinkWrapper>
     </NavContainer>
   );
@@ -40,7 +60,7 @@ const NavContainer = styled.nav`
 const LinkWrapper = styled.ul`
   display: flex;
   width: 60%;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   margin-right: 2rem;
 `;

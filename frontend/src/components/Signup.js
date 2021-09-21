@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
 const Signup = () => {
+  const history = useHistory();
+
   const {
     register,
     handleSubmit,
@@ -11,7 +13,7 @@ const Signup = () => {
     reset,
   } = useForm();
 
-  const [serverData, setServerData] = useState()
+  const [serverData, setServerData] = useState();
 
   const submitForm = (data) => {
     const body = {
@@ -34,6 +36,7 @@ const Signup = () => {
         .then((data) => setServerData(data.message))
         .catch((err) => console.log(err));
       reset();
+      history.push("/images");
     } else {
       alert("Passwords do not match");
     }
