@@ -2,6 +2,7 @@ from flask import request
 from flask_restx import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import Images
+from gcs import upload
 
 images_ns=Namespace('images', description="A namespace for Images")
 
@@ -29,32 +30,20 @@ class ImagesResource(Resource):
    return images
 
   @images_ns.marshal_with(images_model)
-  @images_ns.expect(images_model)
   @jwt_required()
   def post(self):
     data=request.get_json()
-
-    new_recipe=Images(
+    # run the gcs function and return the url here in a variable
+    imageUrl=upload(data.get("image"))
+    print(imageUrl)
+    new_image=Images(
+      # add in the gcs portion!
+      image=imageUrl,
       title=data.get('title'),
       description=data.get('description'),
+      owner_id=data.get('owner_id')
     )
 
-    new_recipe.save()
-    return new_recipe, 201
+    new_image.save()
+    return new_image, 201
    
-
-
-@images_ns.route('/images/<int:id>')
-class RecipeResource(Resource):
-  @images_ns.marshal_with(images_model)
-  @jwt_required()
-  def get(self, id):
-    recipe=Images.query.get_or_404(id)
-    return recipe
-
-  @images_ns.marshal_with(images_model)
-  @jwt_required()
-  def delete(self, id):
-    recipe_to_delete=Images.query.get_or_404(id)
-    recipe_to_delete.delete()
-    return recipe_to_delete

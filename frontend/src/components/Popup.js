@@ -1,20 +1,42 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
-import {useForm} from "react-hook-form"
 
 Modal.setAppElement("#root");
 
 const Popup = ({ open, setOpen, user }) => {
-  const [image, setImage] = useState();
-  const [preview, setPreview] = useState();
-  const {register, handleSubmit, formState: {errors}} = useForm()
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  
+  const body = {
+    image: preview ? preview.split(",")[1] : null,
+    title: title,
+    description: description,
+    owner_id: parseInt(user.user_Id)
+  };
 
-  const submitForm = (data) => {
-    const body = {
-      
+  const submitHandler = (data) => {
+    const token = localStorage.getItem("REACT_TOKEN_AUTH_KEY");
+
+    if ((image, preview, title, description)) {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+        body: JSON.stringify(data),
+      };
+      fetch("/images/images", requestOptions)
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    } else {
+      alert("Please fill in all the fields :)");
     }
-  }
+  };
 
   useEffect(() => {
     if (image) {
@@ -27,7 +49,6 @@ const Popup = ({ open, setOpen, user }) => {
       setPreview(null);
     }
   }, [image]);
-
 
   return (
     <Modal
@@ -44,7 +65,7 @@ const Popup = ({ open, setOpen, user }) => {
       }}
     >
       <h2>Add Images</h2>
-      <InnerWrapperForm method="post">
+      <InnerWrapperForm>
         {preview ? null : (
           <div>
             <input
@@ -80,13 +101,30 @@ const Popup = ({ open, setOpen, user }) => {
             />
             <LabelWrapper>
               <label>Add Title</label>
-              <input type="text" />
+              <input
+                type="text"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
             </LabelWrapper>
             <LabelWrapper>
               <label>Add Description</label>
-              <input type="text"/>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              />
             </LabelWrapper>
-            <button style={buttonStyle}>Add to collection? </button>
+            <button
+              style={buttonStyle}
+              onClick={() => {
+                submitHandler(body);
+              }}
+            >
+              Add to collection?{" "}
+            </button>
           </>
         ) : null}
       </InnerWrapperForm>
@@ -94,7 +132,7 @@ const Popup = ({ open, setOpen, user }) => {
   );
 };
 
-const InnerWrapperForm = styled.form`
+const InnerWrapperForm = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

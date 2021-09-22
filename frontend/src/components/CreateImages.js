@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Popup from "./Popup"
+import Popup from "./Popup";
 
 const CreateImages = ({ user }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   return (
     <>
       {user ? (
-        <div></div>
-      ) : (
         <ImagePageWrapper>
           <HeaderWrapper>
             <WelcomeWrapper>Welcome Chris!</WelcomeWrapper>
 
-            <AddImageButton onClick={() => setOpen(true)}>Add Image!</AddImageButton>
+            <AddImageButton onClick={() => setOpen(true)}>
+              Add Image!
+            </AddImageButton>
           </HeaderWrapper>
-          <Popup open={open} setOpen={setOpen} user={user}/>
+          <Popup open={open} setOpen={setOpen} user={user} />
         </ImagePageWrapper>
+      ) : (
+        <div>Please login to see and upload images :)</div>
       )}
     </>
   );
