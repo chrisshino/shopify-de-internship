@@ -21,8 +21,11 @@ def upload(file):
   img.close()
   
  
-  blob = bucket.blob(f"{title}")
+  blob = bucket.blob(f"images/{title}")
   blob.upload_from_filename(f"{tempdir}/{title}.jpeg")
+  
+  os.remove(f"{tempdir}/{title}.jpeg")
+  os.rmdir(tempdir)
   return blob.public_url
 
 

@@ -28,7 +28,7 @@ const App = () => {
               <CreateImages user={user} />
             </Route>
             <Route path="/login">
-              <Login setUser={setUser} />
+              <Login setUser={setUser} user={user} />
             </Route>
             <Route path="/signup">
               <Signup />

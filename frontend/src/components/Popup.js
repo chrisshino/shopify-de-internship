@@ -70,7 +70,7 @@ const Popup = ({ open, setOpen, user }) => {
           <div>
             <input
               type="file"
-              accept="image/*"
+              accept="image/jpeg"
               onChange={(e) => {
                 const file = e.target.files[0];
                 if (file && file.type.substr(0, 5) === "image") {

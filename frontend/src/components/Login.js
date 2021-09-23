@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { login } from "../auth";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, user }) => {
   const history = useHistory();
-
   const {
     register,
     handleSubmit,
@@ -26,9 +25,15 @@ const Login = ({ setUser }) => {
     fetch("/auth/login", requestOptions)
       .then((res) => res.json())
       .then((data) => {
-        login(data.access_token);
-        setUser({ user_Id: data.user_id, username: data.username });
-        history.push("/images");
+        if (data.access_token) {
+          login(data.access_token);
+          setUser({ user_Id: data.user_id, username: data.username });
+          history.push("/images");
+          localStorage.setItem("user", data.username)
+        }
+        else {
+          throw new Error()
+        }
       })
       .catch((err) => console.log(err));
 

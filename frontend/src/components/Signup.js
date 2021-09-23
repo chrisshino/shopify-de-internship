@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,6 @@ const Signup = () => {
     reset,
   } = useForm();
 
-  const [serverData, setServerData] = useState();
 
   const submitForm = (data) => {
     const body = {
@@ -33,7 +32,7 @@ const Signup = () => {
 
       fetch("/auth/signup", requestOptions)
         .then((res) => res.json())
-        .then((data) => setServerData(data.message))
+        .then((data) => console.log(data.message))
         .catch((err) => console.log(err));
       reset();
       history.push("/login");

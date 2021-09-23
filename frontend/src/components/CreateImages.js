@@ -1,9 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Popup from "./Popup";
+import Image from "./Image";
 
 const CreateImages = ({ user }) => {
   const [open, setOpen] = useState(false);
+  const [images, setImages] = useState(null);
+  if (user == null) {
+    user = localStorage.getItem("user");
+  }
+  console.log(images);
+
+  useEffect(() => {
+    if (user) {
+      const token = localStorage.getItem("REACT_TOKEN_AUTH_KEY");
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${JSON.parse(token)}`,
+        },
+      };
+      fetch("/images/images", requestOptions)
+        .then((res) => res.json())
+        .then((data) => setImages(data))
+        .catch((err) => console.log(err));
+    } else {
+      return null;
+    }
+  }, [user]);
+
   return (
     <>
       {user ? (
@@ -15,6 +41,15 @@ const CreateImages = ({ user }) => {
               Add Image!
             </AddImageButton>
           </HeaderWrapper>
+          <ImagesWrapper>
+            {images ? (
+              images.map((image, i) => {
+                return <Image key={i} data={image} />;
+              })
+            ) : (
+              <div>Looks like you don't have any images yet?</div>
+            )}
+          </ImagesWrapper>
           <Popup open={open} setOpen={setOpen} user={user} />
         </ImagePageWrapper>
       ) : (
@@ -46,6 +81,16 @@ const HeaderWrapper = styled.div`
   margin-right: auto;
   border-radius: 5px;
   color: white;
+`;
+
+const ImagesWrapper = styled.div`
+  display: flex;
+  overflow-y: auto;
+  width: 60%;
+  height: 60%;
+  margin-top: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
 `;
 
 const WelcomeWrapper = styled.div`

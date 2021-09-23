@@ -25,7 +25,7 @@ class ImagesResource(Resource):
    """Get's all images for the current user"""
    current_user=get_jwt_identity()
   #  then query on this username to our db
-   images=Images.query.filter_by()
+   images=Images.query.filter_by(owner_id=current_user).all()
 
    return images
 

@@ -59,11 +59,10 @@ class Login(Resource):
     password=data.get('password')
 
     db_user=User.query.filter_by(username=username).first()
-    
     if db_user and check_password_hash(db_user.password, password):
 
-      access_token = create_access_token(identity=db_user.username)
-      refresh_token = create_refresh_token(identity=db_user.username)
+      access_token = create_access_token(identity=db_user.id)
+      refresh_token = create_refresh_token(identity=db_user.id)
       user_id = db_user.id
       username = db_user.username
 
