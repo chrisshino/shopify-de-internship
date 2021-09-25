@@ -14,6 +14,8 @@ class DevConfig(Config):
   SQLALCHEMY_ECHO=True
 
 class ProdConfig(Config):
-  pass
+  SQLALCHEMY_DATABASE_URI=config('SQLALCHEMY_DATABASE_URI')
+  DEBUG=False
+  SQLALCHEMY_ECHO=False
 
 

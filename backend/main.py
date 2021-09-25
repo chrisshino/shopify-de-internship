@@ -4,7 +4,7 @@ from models import Images, User
 from ext import db
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from config import DevConfig
+from config import ProdConfig
 from images import images_ns
 from auth import auth_ns
 from flask_cors import CORS
@@ -12,7 +12,7 @@ from flask_cors import CORS
 def create_app():
 
   app = Flask(__name__)
-  app.config.from_object(DevConfig)
+  app.config.from_object(ProdConfig)
   CORS(app)
   db.init_app(app)
 
