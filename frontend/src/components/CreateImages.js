@@ -21,7 +21,7 @@ const CreateImages = ({ user }) => {
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       };
-      fetch("/images/images", requestOptions)
+      fetch("34.68.61.159:8080/api/images/images", requestOptions)
         .then((res) => res.json())
         .then((data) => setImages(data))
         .catch((err) => console.log(err));

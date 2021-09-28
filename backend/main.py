@@ -23,6 +23,14 @@ def create_app():
   api.add_namespace(images_ns)
   api.add_namespace(auth_ns)
 
+  @app.route('/health')
+  def health():
+    return '', 200
+
+  @app.route('/ready')
+  def ready():
+    return '', 200
+
   @app.shell_context_processor
   def make_shell_context():
     return {

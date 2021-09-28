@@ -30,7 +30,7 @@ const Signup = () => {
         body: JSON.stringify(body),
       };
 
-      fetch("/auth/signup", requestOptions)
+      fetch("34.68.61.159:8080/api/auth/signup", requestOptions)
         .then((res) => res.json())
         .then((data) => console.log(data.message))
         .catch((err) => console.log(err));

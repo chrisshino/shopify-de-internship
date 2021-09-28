@@ -29,7 +29,7 @@ const Popup = ({ open, setOpen, user }) => {
         },
         body: JSON.stringify(data),
       };
-      fetch("/images/images", requestOptions)
+      fetch("34.68.61.159:8080/api/images/images", requestOptions)
         .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((err) => console.log(err));

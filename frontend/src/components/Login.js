@@ -22,7 +22,7 @@ const Login = ({ setUser, user }) => {
       body: JSON.stringify(data),
     };
 
-    fetch("/auth/login", requestOptions)
+    fetch("34.68.61.159:8080/api/auth/login", requestOptions)
       .then((res) => res.json())
       .then((data) => {
         if (data.access_token) {
