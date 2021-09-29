@@ -15,7 +15,6 @@ services:
       - "8000:8000"
 
   nginx: 
-    # Since our Dockerfile for web-server is located in react-app foler, our build context is ./react-app
     build: ./frontend
     container_name: nginx
     ports:

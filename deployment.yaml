@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name: flask
-          image: gcr.io/proven-cider-326301/shopifiy-de-intern-flask:latest
+          image: gcr.io/proven-cider-326301/shopify-de-intern-flask
           imagePullPolicy: "Always"
           resources:
             limits:
