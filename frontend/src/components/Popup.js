@@ -23,13 +23,14 @@ const Popup = ({ open, setOpen, user }) => {
     if ((image, preview, title, description)) {
       const requestOptions = {
         method: "POST",
+        mode: 'cors',
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
         body: JSON.stringify(data),
       };
-      fetch("34.68.61.159:8080/api/images/images", requestOptions)
+      fetch("34.123.73.156:8080/api/images/images", requestOptions)
         .then((res) => res.json())
         .then((data) => console.log(data))
         .catch((err) => console.log(err));

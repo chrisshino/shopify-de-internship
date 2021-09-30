@@ -16,13 +16,14 @@ const Login = ({ setUser, user }) => {
   const loginUser = (data) => {
     const requestOptions = {
       method: "POST",
+      mode: 'cors',
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(data),
     };
 
-    fetch("34.68.61.159:8080/api/auth/login", requestOptions)
+    fetch("34.123.73.156:8080/api/auth/login", requestOptions)
       .then((res) => res.json())
       .then((data) => {
         if (data.access_token) {

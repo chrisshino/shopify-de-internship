@@ -16,12 +16,13 @@ const CreateImages = ({ user }) => {
       const token = localStorage.getItem("REACT_TOKEN_AUTH_KEY");
       const requestOptions = {
         method: "GET",
+        mode: 'cors',
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${JSON.parse(token)}`,
         },
       };
-      fetch("34.68.61.159:8080/api/images/images", requestOptions)
+      fetch("34.123.73.156:8080/api/images/images", requestOptions)
         .then((res) => res.json())
         .then((data) => setImages(data))
         .catch((err) => console.log(err));

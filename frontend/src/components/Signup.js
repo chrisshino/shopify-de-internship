@@ -24,13 +24,14 @@ const Signup = () => {
     if (data.password === data.confirm) {
       const requestOptions = {
         method: "POST",
+        mode: 'cors',
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(body),
       };
 
-      fetch("34.68.61.159:8080/api/auth/signup", requestOptions)
+      fetch("34.123.73.156:8080/api/auth/signup", requestOptions)
         .then((res) => res.json())
         .then((data) => console.log(data.message))
         .catch((err) => console.log(err));

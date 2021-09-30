@@ -17,7 +17,7 @@ images_model=images_ns.model(
   }
 )
 
-@images_ns.route('/images')
+@images_ns.route('/images', methods=['POST', 'GET'])
 class ImagesResource(Resource):
   @images_ns.marshal_list_with(images_model)
   @jwt_required()
